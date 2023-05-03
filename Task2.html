@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Task 2</title>
+</head>
+<body>
+<style>
+	*
+	{
+	text-align: center;
+	margin: auto;
+	}
+
+	table, td, th {
+    border: 1px solid black;
+	}
+
+	table {
+    border-collapse: collapse;
+    width: 100%;
+	}
+
+	fieldset {
+ 	background-color: #eeeeee;
+	width: 500px;
+	height: 300px;
+    display: inline-block;
+	}
+
+	legend {
+	background-color: gray;
+ 	color: white;
+	padding: 5px 10px;
+	}
+
+	input {
+	margin: 5px;
+	}
+
+	button {
+	padding: 5px 10px;
+	border-radius: 3px;
+	border: none;
+	background-color: #4CAF50;
+	color: white;
+	cursor: pointer;
+	}
+
+	button:hover {
+	background-color: #3e8e41;
+	}
+</style>
+</body>
+</html>
+</head>
+<body>
+	<fieldset>
+		<legend>Basketball Order Form</legend>
+	<form>
+		<label for="numItems"><b>Basketball Products:</b></label>
+		<input type="text" id="numItems" value="0" readonly>
+		<button type="button" onclick="incrementNumItems()">+</button>
+		<button type="button" onclick="decrementNumItems()">-</button>
+		<br>
+		<label for="shippingFee"><b>Shipping and handling fee:</b></label>
+		<input type="text" id="shippingFee" value="4.99">
+		<br><br>
+		<button type="button" onclick="calculateOrder()">Calculate Order Total</button>
+	</form>
+	<br>
+	<h2>ORDER SUMMARY</h2>
+	<table>
+		<tr>
+			<td>Items:</td>
+			<td id="numItemsSummary">0</td>
+		</tr>
+		<tr>
+			<td>Shipping and Handling:</td>
+			<td id="shippingFeeSummary">$0.00</td>
+		</tr>
+		<tr>
+			<td>Total Before Tax:</td>
+			<td id="totalBeforeTax">$0.00</td>
+		</tr>
+		<tr>
+			<td>Estimated 10% Tax:</td>
+			<td id="estimatedTax">$0.00</td>
+		</tr>
+		<tr>
+			<td><strong>Order Total:</strong></td>
+			<td id="orderTotal">$0.00</td>
+		</tr>
+	</table>
+	</fieldset>
+	<script>
+		function calculateOrder() {
+			// read the values from the input fields
+			var numItems = parseInt(document.getElementById("numItems").value);
+			var shippingFee = parseFloat(document.getElementById("shippingFee").value);
+
+			// calculate the various order totals
+			var itemCost = 1597; // in cents
+			var totalBeforeTax = numItems * itemCost + shippingFee;
+			var estimatedTax = Math.round(totalBeforeTax * 0.1);
+			var orderTotal = totalBeforeTax + estimatedTax;
+
+			// display the calculated order totals in the summary table
+			document.getElementById("numItemsSummary").textContent = numItems;
+			document.getElementById("shippingFeeSummary").textContent = "$" + shippingFee.toFixed(2);
+			document.getElementById("totalBeforeTax").textContent = "$" + (totalBeforeTax / 100).toFixed(2);
+			document.getElementById("estimatedTax").textContent = "$" + (estimatedTax / 100).toFixed(2);
+			document.getElementById("orderTotal").textContent = "$" + (orderTotal / 100).toFixed(2);
+		}
+
+		function incrementNumItems() {
+			var numItems = parseInt(document.getElementById("numItems").value);
+			document.getElementById("numItems").value = numItems + 1;
+		}
+
+		function decrementNumItems() {
+			var numItems = parseInt(document.getElementById("numItems").value);
+			if (numItems > 0) {
+				document.getElementById("numItems").value = numItems - 1;
+			}
+		}
+	</script>
+</body>
+</html>
